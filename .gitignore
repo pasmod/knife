@@ -1,0 +1,17 @@
+# ignore gradle generated files
+/build/
+/*/build/
+.gradle
+.gradle_user_home
+
+# do not track any eclipse project files
+.project
+.classpath
+.settings/
+/*/bin
+
+/data
+/bin
+
+# ignore temp folders
+/*/temp/ 
