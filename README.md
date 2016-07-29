@@ -1,5 +1,7 @@
-# Knife
-Java Extractor API base on QDox
+# Knife: Java Extractor API based on QDox
+[![license](http://img.shields.io/:license-apache-blue.svg)](https://github.com/pasmod/knife/blob/master/LICENSE)
+
+Knife is a web service based on QDox and Spark micro framework to parse and extract information from Java source code.
 
 ## How to setup the project:
 ``` bash
@@ -13,7 +15,7 @@ Java Extractor API base on QDox
   make run
   ./bin/knife
 ```
-# Features (Routes)
+## Features (Routes)
 This service provides several routes for extracting information from Java source code. To run the examples first start the web service and then enter the commands in another terminal.
 
 ##### /method/blocks
