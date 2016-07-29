@@ -51,7 +51,7 @@ public class App {
 				kJavaClasses.add(new KJavaClass.Builder().methods(kJavaMethods).build());
 			}
 
-			return new Segment.Builder().classes(kJavaClasses).build();
+			return new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
 		}, new JsonTransformer());
 	}
 
