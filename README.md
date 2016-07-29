@@ -3,6 +3,10 @@
 
 Knife is a web service based on QDox and Spark micro framework to parse and extract information from Java source code.
 
+## Dependencies
+- [Docker](https://www.docker.com/)
+- [Gradle](https://gradle.org/) (required only for development and testing)
+
 ## How to setup the project:
 ``` bash
   cd knife
@@ -18,7 +22,7 @@ Knife is a web service based on QDox and Spark micro framework to parse and extr
 ## Features (Routes)
 This service provides several routes for extracting information from Java source code. To run the examples first start the web service and then enter the commands in another terminal.
 
-##### /method/blocks
+##### /extract
 Extracts the available methods blocks from a java class
 Example:
 ``` java
@@ -34,8 +38,8 @@ public class Example {
 ``` bash
 curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/extract
 ```
-Result will be an array consisting of two methods:
-``` json
+Result will be a json as follows:
+```json
 {
   "classes": [
     {
