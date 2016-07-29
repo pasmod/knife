@@ -17,8 +17,8 @@ Knife is a web service based on QDox and Spark micro framework to parse and extr
 ``` bash
   cd knife
   make run
-  ./bin/knife
 ```
+
 ## Features (Routes)
 This service provides several routes for extracting information from Java source code. To run the examples first start the web service and then enter the commands in another terminal. Use a tool such as [jq](https://stedolan.github.io/jq/) to pretty print the JSON outputs: ```sudo apt-get install jq``` 
 
