@@ -15,7 +15,7 @@ Knife is a web service based on QDox and Spark micro framework to parse and extr
   make run
   ./bin/knife
 ```
-# Features (Routes)
+## Features (Routes)
 This service provides several routes for extracting information from Java source code. To run the examples first start the web service and then enter the commands in another terminal.
 
 ##### /method/blocks
