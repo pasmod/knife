@@ -15,11 +15,9 @@ public class Segment {
 		}
 
 		public Segment build() {
-			return new Segment(this);
+			Segment segment = new Segment();
+			segment.classes = classes;
+			return segment;
 		}
-	}
-
-	private Segment(Builder builder) {
-		this.classes = builder.classes;
 	}
 }
