@@ -32,14 +32,30 @@ public class Example {
 }
 ```
 ``` bash
-curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/method/blocks
+curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/extract
 ```
 Result will be an array consisting of two methods:
-``` java
-[public static void main(java.lang.String[] args) {
-		System.out.println(add(2, 3));
- },
- public static int add(int a, int b) {
-		return a + b;
- }]
-``` 
+``` json
+{
+  "classes": [
+    {
+      "methods": [
+        {
+          "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(add(2, 3));\n\t}\n"
+        },
+        {
+          "codeBlock": "public static int add(int a, int b) {\n\n\t\treturn a + b;\n\t}\n"
+        }
+      ]
+    },
+    {
+      "methods": [
+        {
+          "codeBlock": "public void print(int a) {\n\n\t\tSystem.out.println(a);\n\t}\n"
+        }
+      ]
+    }
+  ]
+}
+
+```
