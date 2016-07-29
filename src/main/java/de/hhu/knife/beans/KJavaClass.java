@@ -3,6 +3,7 @@ package de.hhu.knife.beans;
 import java.util.List;
 
 public class KJavaClass {
+	@SuppressWarnings("unused")
 	private List<KJavaMethod> methods;
 
 	public static class Builder {
