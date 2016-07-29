@@ -8,7 +8,7 @@ build:
 	docker build -t $(registry)/$(name) $(BUILD_OPTS) .
  
 run: stop
-	docker run -it -p 4567:4567 --name=$(name) $(registry)/$(name) bash -l ./bin/knife
+	docker run -it -p 4567:4567 --name=$(name) $(registry)/$(name) bash -l
  
 start: stop
 	docker run -d -p 4567:4567 --name=$(name) $(registry)/$(name)
