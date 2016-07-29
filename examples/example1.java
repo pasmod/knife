@@ -9,3 +9,10 @@ public class Example {
 	}
 
 }
+
+public class SecondClass {
+
+	public void print(int a) {
+		System.out.println(a);
+	}
+}
