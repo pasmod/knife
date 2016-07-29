@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.parser.ParseException;
 
 import de.hhu.knife.beans.KJavaClass;
 import de.hhu.knife.beans.KJavaMethod;
 import de.hhu.knife.beans.Segment;
+import de.hhu.knife.beans.State;
 import de.hhu.knife.transformers.JsonTransformer;
 
 public class App {
@@ -26,9 +28,12 @@ public class App {
 
 		post("/extract", "application/json", (request, response) -> {
 			// TODO: It is necessary to init the builder for each request?
-			// TODO: Add exception handling (case: code not parsable)
 			final JavaProjectBuilder builder = new JavaProjectBuilder();
-			builder.addSource(new StringReader(request.queryParams("class")));
+			try {
+				builder.addSource(new StringReader(request.queryParams("class")));
+			} catch (ParseException e) {
+				return new Segment.Builder().state(State.PARSE_ERROR).build();
+			}
 			List<KJavaClass> kJavaClasses = new ArrayList<>();
 			for (List<JavaMethod> javaMethodsList : builder.getClasses().stream().collect(Collectors.toList()).stream()
 					.map(clazz -> clazz.getMethods()).collect(Collectors.toList())) {
