@@ -3,19 +3,20 @@ package de.hhu.knife.beans;
 import java.util.List;
 
 public class KJavaClass {
-	public List<KJavaMethod> getMethods() {
-		return methods;
-	}
-
-	public void setMethods(List<KJavaMethod> methods) {
-		this.methods = methods;
-	}
-
-	public KJavaClass(List<KJavaMethod> methods) {
-		super();
-		this.methods = methods;
-	}
-
 	private List<KJavaMethod> methods;
 
+	public static class Builder {
+		private List<KJavaMethod> methods;
+
+		public Builder methods(List<KJavaMethod> methods) {
+			this.methods = methods;
+			return this;
+		}
+
+		public KJavaClass build() {
+			KJavaClass kJavaClass = new KJavaClass();
+			kJavaClass.methods = methods;
+			return kJavaClass;
+		}
+	}
 }

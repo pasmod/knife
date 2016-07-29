@@ -1,19 +1,22 @@
 package de.hhu.knife.beans;
 
 public class KJavaMethod {
-	public String getCodeBlock() {
-		return codeBlock;
-	}
 
-	public void setCodeBlock(String codeBlock) {
-		this.codeBlock = codeBlock;
-	}
-
-	public KJavaMethod(String codeBlock) {
-		super();
-		this.codeBlock = codeBlock;
-	}
-
+	@SuppressWarnings("unused")
 	private String codeBlock;
 
+	public static class Builder {
+		private String codeBlock;
+
+		public Builder codeBlock(String codeBlock) {
+			this.codeBlock = codeBlock;
+			return this;
+		}
+
+		public KJavaMethod build() {
+			KJavaMethod kJavaMethod = new KJavaMethod();
+			kJavaMethod.codeBlock = codeBlock;
+			return kJavaMethod;
+		}
+	}
 }
