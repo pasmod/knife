@@ -33,14 +33,22 @@ public class App {
 		post("/extract", "application/json", (request, response) -> {
 			// TODO: It is necessary to init the builder for each request?
 			final JavaProjectBuilder builder = new JavaProjectBuilder();
-			// TODO: Exception handling for the case that query param does not exist
+			// TODO: Exception handling for the case that query param does not
+			// exist
 			String queryParams = request.queryParams("class");
+			System.out.println(queryParams);
+			// TODO: The case strange should be investigated more. Why kinds of
+			// codes result in Strange?!
 			try {
 				builder.addSource(new StringReader(queryParams));
 			} catch (ParseException e) {
 				logger.error(String.format("Error whild parsing the code: %s", queryParams), e);
 				return new Segment.Builder().state(State.PARSE_ERROR).build();
+			} catch (RuntimeException e) {
+				logger.error(String.format("Something strange happend: %s", queryParams), e);
+				return new Segment.Builder().state(State.STRANGE).build();
 			}
+
 			List<KJavaClass> kJavaClasses = new ArrayList<>();
 			for (List<JavaMethod> javaMethodsList : builder.getClasses().stream().collect(Collectors.toList()).stream()
 					.map(clazz -> clazz.getMethods()).collect(Collectors.toList())) {
