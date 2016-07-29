@@ -1,4 +1,6 @@
 # Knife
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/pasmod/knife/blob/master/LICENSE)
+
 Java Extractor API base on QDox
 
 ## How to setup the project:
