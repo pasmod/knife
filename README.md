@@ -1,5 +1,5 @@
 # Knife
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/pasmod/knife/blob/master/LICENSE)
+[![license](http://img.shields.io/:license-apache-blue.svg)](https://github.com/pasmod/knife/blob/master/LICENSE)
 
 Java Extractor API base on QDox
 
