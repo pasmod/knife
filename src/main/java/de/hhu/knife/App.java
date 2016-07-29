@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.thoughtworks.qdox.JavaProjectBuilder;
 
+import de.hhu.knife.beans.MethodBlocks;
 import de.hhu.knife.transformers.JsonTransformer;
 
 public class App {
@@ -24,9 +25,9 @@ public class App {
 			// TODO: Add exception handling (case: code not parsable)
 			final JavaProjectBuilder builder = new JavaProjectBuilder();
 			builder.addSource(new StringReader(request.queryParams("class")));
-			List<String> methods = builder.getClasses().stream().collect(Collectors.toList()).get(0).getMethods()
+			List<String> methodBlocks = builder.getClasses().stream().collect(Collectors.toList()).get(0).getMethods()
 					.stream().map(m -> m.getCodeBlock()).collect(Collectors.toList());
-			return methods;
+			return new MethodBlocks(methodBlocks);
 		}, new JsonTransformer());
 	}
 
