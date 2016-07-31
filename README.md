@@ -16,7 +16,7 @@ Knife is a web service based on QDox and Spark micro framework to parse and extr
 ## How to start the service:
 ``` bash
   cd knife
-  make run
+  make start
 ```
 
 ## Features (Routes)
