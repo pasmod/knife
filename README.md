@@ -5,7 +5,7 @@ Knife is a web service based on QDox and Spark micro framework to parse and extr
 
 ## Dependencies
 - [Docker](https://www.docker.com/)
-- [Gradle](https://gradle.org/) (required only for development and testing)
+- [Gradle](https://gradle.org/) (only required for development and testing)
 
 ## How to setup the project:
 ``` bash
