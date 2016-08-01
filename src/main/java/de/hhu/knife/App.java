@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thoughtworks.qdox.model.*;
 import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.parser.ParseException;
 
 import de.hhu.knife.beans.KJavaClass;
@@ -50,15 +51,14 @@ public class App {
 			}
 
 			List<KJavaClass> kJavaClasses = new ArrayList<>();
-			for (List<JavaMethod> javaMethodsList : builder.getClasses().stream().collect(Collectors.toList()).stream()
-					.map(clazz -> clazz.getMethods()).collect(Collectors.toList())) {
+			for(JavaClass javaClass : builder.getClasses().stream().collect(Collectors.toList()))
+			{
 				List<KJavaMethod> kJavaMethods = new ArrayList<>();
-				for (JavaMethod javaMethod : javaMethodsList) {
+				for (JavaMethod javaMethod : javaClass.getMethods()) {
 					kJavaMethods.add(new KJavaMethod.Builder().codeBlock(javaMethod.getCodeBlock()).build());
 				}
-				kJavaClasses.add(new KJavaClass.Builder().methods(kJavaMethods).build());
+				kJavaClasses.add(new KJavaClass.Builder().classInformation(javaClass).methods(kJavaMethods).build());
 			}
-
 			return new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
 		}, new JsonTransformer());
 	}
