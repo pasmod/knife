@@ -17,10 +17,7 @@ import com.thoughtworks.qdox.model.*;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.parser.ParseException;
 
-import de.hhu.knife.beans.KJavaClass;
-import de.hhu.knife.beans.KJavaMethod;
-import de.hhu.knife.beans.Segment;
-import de.hhu.knife.beans.State;
+import de.hhu.knife.beans.*;
 import de.hhu.knife.transformers.JsonTransformer;
 
 public class App {
@@ -54,10 +51,15 @@ public class App {
 			for(JavaClass javaClass : builder.getClasses().stream().collect(Collectors.toList()))
 			{
 				List<KJavaMethod> kJavaMethods = new ArrayList<>();
+				List<KJavaField> kJavaFields = new ArrayList<>();
 				for (JavaMethod javaMethod : javaClass.getMethods()) {
 					kJavaMethods.add(new KJavaMethod.Builder().codeBlock(javaMethod.getCodeBlock()).build());
 				}
-				kJavaClasses.add(new KJavaClass.Builder().classInformation(javaClass).methods(kJavaMethods).build());
+				for(JavaField javaField : javaClass.getFields())
+				{
+					kJavaFields.add(new KJavaField.Builder().fieldInformation(javaField).build());
+				}
+				kJavaClasses.add(new KJavaClass.Builder().classInformation(javaClass).methods(kJavaMethods).fields(kJavaFields).build());
 			}
 			return new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
 		}, new JsonTransformer());
