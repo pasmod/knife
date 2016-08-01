@@ -53,7 +53,11 @@ public class App {
 				List<KJavaMethod> kJavaMethods = new ArrayList<>();
 				List<KJavaField> kJavaFields = new ArrayList<>();
 				for (JavaMethod javaMethod : javaClass.getMethods()) {
-					kJavaMethods.add(new KJavaMethod.Builder().methodInformation(javaMethod).build());
+					List<KJavaParameter> javaParameters = new ArrayList<>();
+					for(JavaParameter javaParameter : javaMethod.getParameters()){
+						javaParameters.add(new KJavaParameter.Builder().parameterInformation(javaParameter).build());
+					}
+					kJavaMethods.add(new KJavaMethod.Builder().methodInformation(javaMethod).parameters(javaParameters).build());
 				}
 				for(JavaField javaField : javaClass.getFields())
 				{
