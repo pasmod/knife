@@ -53,7 +53,7 @@ public class App {
 				List<KJavaMethod> kJavaMethods = new ArrayList<>();
 				List<KJavaField> kJavaFields = new ArrayList<>();
 				for (JavaMethod javaMethod : javaClass.getMethods()) {
-					kJavaMethods.add(new KJavaMethod.Builder().codeBlock(javaMethod.getCodeBlock()).build());
+					kJavaMethods.add(new KJavaMethod.Builder().methodInformation(javaMethod).build());
 				}
 				for(JavaField javaField : javaClass.getFields())
 				{
