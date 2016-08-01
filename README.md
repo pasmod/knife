@@ -45,27 +45,81 @@ curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/extract 
 Result will be a json as follows:
 ```json
 {
+  "state": "OK",
   "classes": [
     {
+      "className": "Example",
+      "packageName": "",
+      "isPublic": true,
+      "isPrivate": false,
+      "isStatic": false,
+      "implementsInterfaces": false,
       "methods": [
         {
-          "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(add(2, 3));\n\t}\n"
+          "methodName": "main",
+          "isPublic": true,
+          "isPrivate": false,
+          "isStatic": true,
+          "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(add(2, 3));\n\t}\n",
+          "parameters": [
+            {
+              "parameterName": "args",
+              "type": "java.lang.String[]"
+            }
+          ]
         },
         {
-          "codeBlock": "public static int add(int a, int b) {\n\n\t\treturn a + b;\n\t}\n"
+          "methodName": "add",
+          "isPublic": true,
+          "isPrivate": false,
+          "isStatic": true,
+          "codeBlock": "public static int add(int a, int b) {\n\n\t\treturn a + b;\n\t}\n",
+          "parameters": [
+            {
+              "parameterName": "a",
+              "type": "int"
+            },
+            {
+              "parameterName": "b",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "fieldName": "counter",
+          "type": "int",
+          "codeBlock": "int counter = 5;\n"
         }
       ]
     },
     {
+      "className": "SecondClass",
+      "packageName": "",
+      "isPublic": true,
+      "isPrivate": false,
+      "isStatic": false,
+      "implementsInterfaces": false,
       "methods": [
         {
-          "codeBlock": "public void print(int a) {\n\n\t\tSystem.out.println(a);\n\t}\n"
+          "methodName": "print",
+          "isPublic": true,
+          "isPrivate": false,
+          "isStatic": false,
+          "codeBlock": "public void print(int a) {\n\n\t\tSystem.out.println(a);\n\t}\n",
+          "parameters": [
+            {
+              "parameterName": "a",
+              "type": "int"
+            }
+          ]
         }
-      ]
+      ],
+      "fields": []
     }
   ]
 }
-
 ```
 
 ##### /extract (when code is not parsable)
