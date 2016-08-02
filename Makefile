@@ -5,7 +5,7 @@ registry = hub.docker.com
 
  
 build:
-	docker build -t $(registry)/$(name) $(BUILD_OPTS) .
+	docker build -t $(registry)/$(name):latest $(BUILD_OPTS) .
  
 run: stop
 	docker run -it -p 4567:4567 --name=$(name) $(registry)/$(name) bash -l
