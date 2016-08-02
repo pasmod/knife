@@ -143,4 +143,3 @@ Result will be a json as follows:
   "state": "PARSE_ERROR"
 }
 ```
-
