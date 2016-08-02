@@ -1,5 +1,5 @@
 name = knife
-registry = hub.docker.com
+registry = pasmod
 
 .PHONY: build
 
