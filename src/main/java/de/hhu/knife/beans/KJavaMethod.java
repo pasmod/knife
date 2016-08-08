@@ -3,9 +3,6 @@ package de.hhu.knife.beans;
 import java.util.List;
 
 import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.JavaParameter;
-
-import de.hhu.knife.beans.KJavaClass.Builder;
 
 public class KJavaMethod {
 
@@ -13,6 +10,8 @@ public class KJavaMethod {
 	private List<KJavaParameter> parameters;	
 	@SuppressWarnings("unused")
 	private String codeBlock;
+	@SuppressWarnings("unused")
+	private String sourceCode;
 	@SuppressWarnings("unused")
 	private boolean isStatic;
 	@SuppressWarnings("unused")
@@ -39,6 +38,7 @@ public class KJavaMethod {
 		public KJavaMethod build() {
 			KJavaMethod kJavaMethod = new KJavaMethod();
 			kJavaMethod.codeBlock = javaMethod.getCodeBlock();
+			kJavaMethod.sourceCode = javaMethod.getSourceCode();
 			kJavaMethod.methodName = javaMethod.getName();
 			kJavaMethod.isPublic = javaMethod.isPublic();
 			kJavaMethod.isPrivate = javaMethod.isPrivate();
