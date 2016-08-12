@@ -32,6 +32,7 @@ public class A {
 }
 
 public class B {
+	private int a; // Variable a
 
 	public static Map sortByKey(Map unsortedMap) {
 		Map sortedMap = new TreeMap(); // This is another comment
