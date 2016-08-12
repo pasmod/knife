@@ -20,21 +20,13 @@ public class KJavaMethod {
 	private boolean isPublic;
 	@SuppressWarnings("unused")
 	private String methodName;
-	@SuppressWarnings("unused")
-	private KJavaDoc javaDoc;
 
 	public static class Builder {
 		private JavaMethod javaMethod;
 		private List<KJavaParameter> parameters;
-		private KJavaDoc javaDoc;
 
 		public Builder methodInformation(JavaMethod javaMethod) {
 			this.javaMethod = javaMethod;
-			return this;
-		}
-
-		public Builder javaDoc(KJavaDoc kJavaDoc) {
-			this.javaDoc = kJavaDoc;
 			return this;
 		}
 
@@ -52,7 +44,6 @@ public class KJavaMethod {
 			kJavaMethod.isPrivate = javaMethod.isPrivate();
 			kJavaMethod.isStatic = javaMethod.isStatic();
 			kJavaMethod.parameters = this.parameters;
-			kJavaMethod.javaDoc = this.javaDoc;
 			return kJavaMethod;
 		}
 	}

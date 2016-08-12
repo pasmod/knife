@@ -1,7 +1,8 @@
 package de.hhu.knife.beans;
 
 import java.util.List;
-import com.thoughtworks.qdox.model.*;
+
+import com.thoughtworks.qdox.model.JavaClass;
 
 public class KJavaClass {
 	@SuppressWarnings("unused")
@@ -20,25 +21,32 @@ public class KJavaClass {
 	private String packageName;
 	@SuppressWarnings("unused")
 	private String className;
-	
+	@SuppressWarnings("unused")
+	private List<KJavaComment> comments;
+
 	public static class Builder {
 		private List<KJavaMethod> methods;
 		private List<KJavaField> fields;
 		private JavaClass javaClass;
+		private List<KJavaComment> comments;
 
 		public Builder methods(List<KJavaMethod> methods) {
 			this.methods = methods;
 			return this;
 		}
-		
+
 		public Builder fields(List<KJavaField> fields) {
 			this.fields = fields;
 			return this;
-		}		
-		
-		public Builder classInformation(JavaClass javaClass)
-		{
+		}
+
+		public Builder classInformation(JavaClass javaClass) {
 			this.javaClass = javaClass;
+			return this;
+		}
+
+		public Builder comments(List<KJavaComment> comments) {
+			this.comments = comments;
 			return this;
 		}
 
@@ -49,9 +57,10 @@ public class KJavaClass {
 			kJavaClass.isPrivate = javaClass.isPrivate();
 			kJavaClass.isStatic = javaClass.isStatic();
 			kJavaClass.packageName = javaClass.getPackageName();
-			kJavaClass.implementsInterfaces = javaClass.getInterfaces().size() > 0;			
+			kJavaClass.implementsInterfaces = javaClass.getInterfaces().size() > 0;
 			kJavaClass.methods = methods;
 			kJavaClass.fields = fields;
+			kJavaClass.comments = comments;
 			return kJavaClass;
 		}
 	}
