@@ -26,7 +26,7 @@ Knife is a web service based on QDox and Spark micro framework to parse and extr
 ```
 
 ## Features (Routes)
-This service provides several routes for extracting information from Java source code. To run the examples first start the web service and then enter the commands in another terminal. Use a tool such as [jq](https://stedolan.github.io/jq/) to pretty print the JSON outputs: ```sudo apt-get install jq``` 
+This service provides several routes for extracting information from Java source code. To run the examples first start the web service and then enter the commands in another terminal. Use a tool such as [jq](https://stedolan.github.io/jq/) to pretty print the JSON outputs: ```sudo apt-get install jq```
 
 ##### /extract (when code is parsable)
 Extracts the available methods blocks from a java class
@@ -46,80 +46,104 @@ curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/extract 
 Result will be a json as follows:
 ```json
 {
-  "state": "OK",
   "classes": [
     {
-      "className": "Example",
-      "packageName": "",
-      "isPublic": true,
-      "isPrivate": false,
-      "isStatic": false,
-      "implementsInterfaces": false,
+      "fields": [],
       "methods": [
         {
-          "methodName": "main",
-          "isPublic": true,
-          "isPrivate": false,
-          "isStatic": true,
-          "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(add(2, 3));\n\t}\n",
           "parameters": [
             {
-              "parameterName": "args",
-              "type": "java.lang.String[]"
-            }
-          ]
-        },
-        {
-          "methodName": "add",
-          "isPublic": true,
-          "isPrivate": false,
-          "isStatic": true,
-          "codeBlock": "public static int add(int a, int b) {\n\n\t\treturn a + b;\n\t}\n",
-          "parameters": [
-            {
-              "parameterName": "a",
-              "type": "int"
+              "type": "URL",
+              "parameterName": "url"
             },
             {
-              "parameterName": "b",
-              "type": "int"
+              "type": "java.lang.String",
+              "parameterName": "name"
             }
-          ]
-        }
-      ],
-      "fields": [
-        {
-          "fieldName": "counter",
-          "type": "int",
-          "codeBlock": "int counter = 5;\n"
-        }
-      ]
-    },
-    {
-      "className": "SecondClass",
-      "packageName": "",
-      "isPublic": true,
-      "isPrivate": false,
-      "isStatic": false,
-      "implementsInterfaces": false,
-      "methods": [
-        {
-          "methodName": "print",
-          "isPublic": true,
-          "isPrivate": false,
+          ],
+          "codeBlock": "/**\n * Some text\n *\n * @param url\n           some url\n * @param name\n           some name\n * @return the image at the specified URL\n * @see Image\n */\npublic Image getImage(URL url, java.lang.String name) {\n\n\t\ttry {\n\t\t\treturn getImage(new URL(url, name));\n\t\t} catch (MalformedURLException e) {\n\t\t\treturn null;\n\t\t}\n\t}\n",
+          "sourceCode": "\n\t\ttry {\n\t\t\treturn getImage(new URL(url, name));\n\t\t} catch (MalformedURLException e) {\n\t\t\treturn null;\n\t\t}\n\t",
           "isStatic": false,
-          "codeBlock": "public void print(int a) {\n\n\t\tSystem.out.println(a);\n\t}\n",
+          "isPrivate": false,
+          "isPublic": true,
+          "methodName": "getImage",
+          "javaDoc": {
+            "text": "Some text",
+            "tags": [
+              {
+                "name": "param",
+                "value": "url\n           some url"
+              },
+              {
+                "name": "param",
+                "value": "name\n           some name"
+              },
+              {
+                "name": "return",
+                "value": "the image at the specified URL"
+              },
+              {
+                "name": "see",
+                "value": "Image"
+              }
+            ]
+          }
+        },
+        {
           "parameters": [
             {
-              "parameterName": "a",
-              "type": "int"
+              "type": "java.lang.String[]",
+              "parameterName": "args"
             }
-          ]
+          ],
+          "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n",
+          "sourceCode": "\n\t\tSystem.out.println(\"Hello World!\");\n\t",
+          "isStatic": true,
+          "isPrivate": false,
+          "isPublic": true,
+          "methodName": "main",
+          "javaDoc": {
+            "tags": []
+          }
         }
       ],
-      "fields": []
+      "implementsInterfaces": false,
+      "isStatic": false,
+      "isPrivate": false,
+      "isPublic": true,
+      "packageName": "com.hmkcode",
+      "className": "A"
+    },
+    {
+      "fields": [],
+      "methods": [
+        {
+          "parameters": [
+            {
+              "type": "java.util.Map",
+              "parameterName": "unsortedMap"
+            }
+          ],
+          "codeBlock": "public static java.util.Map sortByKey(java.util.Map unsortedMap) {\n\n\t\tMap sortedMap = new TreeMap(); // This is another comment\n\t\tsortedMap.putAll(unsortedMap); \n\t\t/*\n\t\t * Also a comment\n\t\t */\n\t\treturn sortedMap;\n\t}\n",
+          "sourceCode": "\n\t\tMap sortedMap = new TreeMap(); // This is another comment\n\t\tsortedMap.putAll(unsortedMap); \n\t\t/*\n\t\t * Also a comment\n\t\t */\n\t\treturn sortedMap;\n\t",
+          "isStatic": true,
+          "isPrivate": false,
+          "isPublic": true,
+          "methodName": "sortByKey",
+          "javaDoc": {
+            "tags": []
+          }
+        }
+      ],
+      "implementsInterfaces": false,
+      "isStatic": false,
+      "isPrivate": false,
+      "isPublic": true,
+      "packageName": "com.hmkcode",
+      "className": "B"
     }
-  ]
+  ],
+  "state": "OK"
 }
 ```
 
