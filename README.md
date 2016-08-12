@@ -46,104 +46,130 @@ curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/extract 
 Result will be a json as follows:
 ```json
 {
-  "classes": [
-    {
-      "fields": [],
-      "methods": [
-        {
-          "parameters": [
-            {
-              "type": "URL",
-              "parameterName": "url"
-            },
-            {
-              "type": "java.lang.String",
-              "parameterName": "name"
-            }
-          ],
-          "codeBlock": "/**\n * Some text\n *\n * @param url\n           some url\n * @param name\n           some name\n * @return the image at the specified URL\n * @see Image\n */\npublic Image getImage(URL url, java.lang.String name) {\n\n\t\ttry {\n\t\t\treturn getImage(new URL(url, name));\n\t\t} catch (MalformedURLException e) {\n\t\t\treturn null;\n\t\t}\n\t}\n",
-          "sourceCode": "\n\t\ttry {\n\t\t\treturn getImage(new URL(url, name));\n\t\t} catch (MalformedURLException e) {\n\t\t\treturn null;\n\t\t}\n\t",
-          "isStatic": false,
-          "isPrivate": false,
-          "isPublic": true,
-          "methodName": "getImage",
-          "javaDoc": {
-            "text": "Some text",
-            "tags": [
+    "classes": [
+      {
+        "fields": [],
+        "methods": [
+          {
+            "parameters": [
               {
-                "name": "param",
-                "value": "url\n           some url"
+                "type": "URL",
+                "parameterName": "url"
               },
               {
-                "name": "param",
-                "value": "name\n           some name"
-              },
-              {
-                "name": "return",
-                "value": "the image at the specified URL"
-              },
-              {
-                "name": "see",
-                "value": "Image"
+                "type": "java.lang.String",
+                "parameterName": "name"
               }
-            ]
+            ],
+            "codeBlock": "/**\n * Some text\n *\n * @param url\n           some url\n * @param name\n           some name\n * @return the image at the specified URL\n * @see Image\n */\npublic Image getImage(URL url, java.lang.String name) {\n\n\t\ttry {\n\t\t\treturn getImage(new URL(url, name));\n\t\t} catch (MalformedURLException e) {\n\t\t\treturn null;\n\t\t}\n\t}\n",
+            "sourceCode": "\n\t\ttry {\n\t\t\treturn getImage(new URL(url, name));\n\t\t} catch (MalformedURLException e) {\n\t\t\treturn null;\n\t\t}\n\t",
+            "isStatic": false,
+            "isPrivate": false,
+            "isPublic": true,
+            "methodName": "getImage"
+          },
+          {
+            "parameters": [
+              {
+                "type": "java.lang.String[]",
+                "parameterName": "args"
+              }
+            ],
+            "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n",
+            "sourceCode": "\n\t\tSystem.out.println(\"Hello World!\");\n\t",
+            "isStatic": true,
+            "isPrivate": false,
+            "isPublic": true,
+            "methodName": "main"
           }
-        },
-        {
-          "parameters": [
-            {
-              "type": "java.lang.String[]",
-              "parameterName": "args"
+        ],
+        "implementsInterfaces": false,
+        "isStatic": false,
+        "isPrivate": false,
+        "isPublic": true,
+        "packageName": "com.hmkcode",
+        "className": "A",
+        "comments": [
+          {
+            "type": "JavadocComment",
+            "content": "\n\t * Some text\n\t *\n\t * @param url\n           some url\n\t * @param name\n           some name\n\t * @return the image at the specified URL\n\t * @see Image\n\t ",
+            "range": {
+              "begin": {
+                "line": 3,
+                "column": 5
+              },
+              "end": {
+                "line": 12,
+                "column": 8
+              }
             }
-          ],
-          "codeBlock": "public static void main(java.lang.String[] args) {\n\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n",
-          "sourceCode": "\n\t\tSystem.out.println(\"Hello World!\");\n\t",
-          "isStatic": true,
-          "isPrivate": false,
-          "isPublic": true,
-          "methodName": "main",
-          "javaDoc": {
-            "tags": []
           }
-        }
-      ],
-      "implementsInterfaces": false,
-      "isStatic": false,
-      "isPrivate": false,
-      "isPublic": true,
-      "packageName": "com.hmkcode",
-      "className": "A"
-    },
-    {
-      "fields": [],
-      "methods": [
-        {
-          "parameters": [
-            {
-              "type": "java.util.Map",
-              "parameterName": "unsortedMap"
+        ]
+      },
+      {
+        "fields": [
+          {
+            "codeBlock": "private int a;\n",
+            "type": "int",
+            "fieldName": "a"
+          }
+        ],
+        "methods": [
+          {
+            "parameters": [
+              {
+                "type": "java.util.Map",
+                "parameterName": "unsortedMap"
+              }
+            ],
+            "codeBlock": "public static java.util.Map sortByKey(java.util.Map unsortedMap) {\n\n\t\tMap sortedMap = new TreeMap(); // This is another comment\n\t\tsortedMap.putAll(unsortedMap); \n\t\t/*\n\t\t * Also a comment\n\t\t */\n\t\treturn sortedMap;\n\t}\n",
+            "sourceCode": "\n\t\tMap sortedMap = new TreeMap(); // This is another comment\n\t\tsortedMap.putAll(unsortedMap); \n\t\t/*\n\t\t * Also a comment\n\t\t */\n\t\treturn sortedMap;\n\t",
+            "isStatic": true,
+            "isPrivate": false,
+            "isPublic": true,
+            "methodName": "sortByKey"
+          }
+        ],
+        "implementsInterfaces": false,
+        "isStatic": false,
+        "isPrivate": false,
+        "isPublic": true,
+        "packageName": "com.hmkcode",
+        "className": "B",
+        "comments": [
+          {
+            "type": "LineComment",
+            "content": " This is another comment",
+            "range": {
+              "begin": {
+                "line": 7,
+                "column": 40
+              },
+              "end": {
+                "line": 7,
+                "column": 66
+              }
             }
-          ],
-          "codeBlock": "public static java.util.Map sortByKey(java.util.Map unsortedMap) {\n\n\t\tMap sortedMap = new TreeMap(); // This is another comment\n\t\tsortedMap.putAll(unsortedMap); \n\t\t/*\n\t\t * Also a comment\n\t\t */\n\t\treturn sortedMap;\n\t}\n",
-          "sourceCode": "\n\t\tMap sortedMap = new TreeMap(); // This is another comment\n\t\tsortedMap.putAll(unsortedMap); \n\t\t/*\n\t\t * Also a comment\n\t\t */\n\t\treturn sortedMap;\n\t",
-          "isStatic": true,
-          "isPrivate": false,
-          "isPublic": true,
-          "methodName": "sortByKey",
-          "javaDoc": {
-            "tags": []
+          },
+          {
+            "type": "BlockComment",
+            "content": "\n\t\t * Also a comment\n\t\t ",
+            "range": {
+              "begin": {
+                "line": 9,
+                "column": 9
+              },
+              "end": {
+                "line": 11,
+                "column": 12
+              }
+            }
           }
-        }
-      ],
-      "implementsInterfaces": false,
-      "isStatic": false,
-      "isPrivate": false,
-      "isPublic": true,
-      "packageName": "com.hmkcode",
-      "className": "B"
-    }
-  ],
-  "state": "OK"
+        ]
+      }
+    ],
+    "state": "OK"
+  }
 }
 ```
 
