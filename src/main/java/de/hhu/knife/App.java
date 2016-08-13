@@ -3,7 +3,6 @@ package de.hhu.knife;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ import de.hhu.knife.transformers.JsonTransformer;
 public class App {
 	private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
 		// Configure Spark
 		port(4567);
@@ -61,17 +60,40 @@ public class App {
 
 			List<KJavaClass> kJavaClasses = new ArrayList<>();
 			for (JavaClass javaClass : builder.getClasses().stream().collect(Collectors.toList())) {
-				CompilationUnit parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
-				List<Comment> comments = parser.getComments();
+				List<Comment> comments = new ArrayList<>();
 				List<KJavaComment> kJavaComments = new ArrayList<>();
-				for (Comment c : comments) {
-					Position begin = new Position.Builder().line(c.getRange().begin.line)
-							.column(c.getRange().begin.column).build();
-					Position end = new Position.Builder().line(c.getRange().end.line).column(c.getRange().end.column)
-							.build();
-					kJavaComments
-							.add(new KJavaComment.Builder().content(c.getContent()).type(c.getClass().getSimpleName())
+				try {
+					if (javaClass.getNestedClasses().size() == 1) {
+						CompilationUnit parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
+
+						comments = parser.getComments();
+						for (Comment c : comments) {
+							Position begin = new Position.Builder().line(c.getRange().begin.line)
+									.column(c.getRange().begin.column).build();
+							Position end = new Position.Builder().line(c.getRange().end.line)
+									.column(c.getRange().end.column).build();
+							kJavaComments.add(new KJavaComment.Builder().content(c.getContent())
+									.type(c.getClass().getSimpleName())
 									.range(new Range.Builder().begin(begin).end(end).build()).build());
+						}
+					} else {
+						for (JavaClass cc : javaClass.getNestedClasses()) {
+							CompilationUnit parser = JavaParser.parse(new StringReader(cc.getCodeBlock()));
+
+							comments = parser.getComments();
+							for (Comment c : comments) {
+								Position begin = new Position.Builder().line(c.getRange().begin.line)
+										.column(c.getRange().begin.column).build();
+								Position end = new Position.Builder().line(c.getRange().end.line)
+										.column(c.getRange().end.column).build();
+								kJavaComments.add(new KJavaComment.Builder().content(c.getContent())
+										.type(c.getClass().getSimpleName())
+										.range(new Range.Builder().begin(begin).end(end).build()).build());
+							}
+						}
+
+					}
+				} catch (Exception e) {
 				}
 				List<KJavaMethod> kJavaMethods = new ArrayList<>();
 				List<KJavaField> kJavaFields = new ArrayList<>();
@@ -89,7 +111,10 @@ public class App {
 				kJavaClasses.add(new KJavaClass.Builder().classInformation(javaClass).methods(kJavaMethods)
 						.fields(kJavaFields).comments(kJavaComments).build());
 			}
-			return new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
+
+			Segment segment = new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
+			return segment;
+
 		}, new JsonTransformer());
 	}
 

@@ -11,7 +11,6 @@ public class Example {
 
 	/*
 	 * JavaDoc comment
-	 * this is good
 	 */
 	public static int add(final int a, final int b) {
 		return a + b;
@@ -24,16 +23,8 @@ public class Example {
 }
 
 public class Example2 {
-	
 	int counter = 5;
 	public static void main(String[] args) {
-		/*
-		 * huhu
-		 * frfrfrfrfr
-		 * rfrfrfr
-		 * rfrfrf
-		 * 
-		 */
 		System.out.println(2);
 		System.out.println(3);
 	}
