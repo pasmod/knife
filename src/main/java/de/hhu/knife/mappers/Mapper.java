@@ -20,7 +20,7 @@ public class Mapper {
         .isPrivate(javaMethod.isPrivate()).isStatic(javaMethod.isStatic()).build();
   }
 
-  public static KJavaParameter from(final JavaParameter javaParameter) {
+  private static KJavaParameter from(final JavaParameter javaParameter) {
     return new KJavaParameter.Builder().type(javaParameter.getType().getValue())
         .name(javaParameter.getName()).build();
   }
