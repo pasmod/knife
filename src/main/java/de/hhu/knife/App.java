@@ -22,29 +22,35 @@ import de.hhu.knife.transformers.JsonTransformer;
 public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-    public static void main(String[] args) {
-	// Configure Spark
-	port(4567);
-	post("/extract", "application/json", (request, response) -> {
-	    final JavaProjectBuilder builder = new JavaProjectBuilder();
-	    String queryParams = request.queryParams("class");
-	    try {
-		builder.addSource(new StringReader(queryParams));
-	    } catch (ParseException e) {
-		logger.error(String.format("Error whild parsing the code: %s", queryParams), e);
-		return new Segment.Builder().state(State.PARSE_ERROR).build();
-	    } catch (RuntimeException e) {
-		logger.error(String.format("Something strange happend: %s", queryParams), e);
-		return new Segment.Builder().state(State.STRANGE).build();
-	    }
+    public static void main(final String[] args) {
+        // Configure Spark
+        port(4567);
+        post("/extract", "application/json", (request, response) -> {
+            final JavaProjectBuilder builder = new JavaProjectBuilder();
+            final String queryParams = request.queryParams("class");
+            try {
+                builder.addSource(new StringReader(queryParams));
+            } catch (final ParseException e) {
+                logger.error(String.format("Error whild parsing the code: %s", queryParams), e);
+                return new Segment.Builder().state(State.PARSE_ERROR)
+                                            .build();
+            } catch (final RuntimeException e) {
+                logger.error(String.format("Something strange happend: %s", queryParams), e);
+                return new Segment.Builder().state(State.STRANGE)
+                                            .build();
+            }
 
-	    List<KJavaClass> kJavaClasses = builder.getClasses().stream().map(jc -> Mapper.from(jc))
-		    .collect(Collectors.toList());
+            final List<KJavaClass> kJavaClasses = builder.getClasses()
+                                                   .stream()
+                                                   .map(jc -> Mapper.from(jc))
+                                                   .collect(Collectors.toList());
 
-	    Segment segment = new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
-	    return segment;
+            final Segment segment = new Segment.Builder().classes(kJavaClasses)
+                                                   .state(State.OK)
+                                                   .build();
+            return segment;
 
-	}, new JsonTransformer());
+        }, new JsonTransformer());
     }
 
 }

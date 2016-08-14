@@ -4,30 +4,30 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Segment {
-    private List<KJavaClass> classes;
-    private State state;
-
     public static class Builder {
-	private List<KJavaClass> classes;
-	private State state;
+        private List<KJavaClass> classes;
+        private State state;
 
-	public Builder classes(List<KJavaClass> classes) {
-	    this.classes = classes;
-	    return this;
-	}
+        public Segment build() {
+            return new Segment(this);
+        }
 
-	public Builder state(State state) {
-	    this.state = state;
-	    return this;
-	}
+        public Builder classes(final List<KJavaClass> classes) {
+            this.classes = classes;
+            return this;
+        }
 
-	public Segment build() {
-	    return new Segment(this);
-	}
+        public Builder state(final State state) {
+            this.state = state;
+            return this;
+        }
     }
+    private final List<KJavaClass> classes;
 
-    private Segment(Builder builder) {
-	this.classes = builder.classes;
-	this.state = builder.state;
+    private final State state;
+
+    private Segment(final Builder builder) {
+        this.classes = builder.classes;
+        this.state = builder.state;
     }
 }

@@ -17,24 +17,31 @@ import de.hhu.knife.beans.Range;
 public class Extractor {
 
     public static List<KJavaComment> extractComments(final JavaClass javaClass) {
-	List<Comment> comments = new ArrayList<>();
-	List<KJavaComment> kJavaComments = new ArrayList<>();
-	CompilationUnit parser;
-	try {
-	    parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
-	    comments = parser.getComments();
-	    for (Comment c : comments) {
-		Position begin = new Position.Builder().line(c.getRange().begin.line).column(c.getRange().begin.column)
-			.build();
-		Position end = new Position.Builder().line(c.getRange().end.line).column(c.getRange().end.column)
-			.build();
-		kJavaComments.add(new KJavaComment.Builder().content(c.getContent()).type(c.getClass().getSimpleName())
-			.range(new Range.Builder().begin(begin).end(end).build()).build());
-	    }
-	    return kJavaComments;
-	} catch (ParseException e) {
-	    e.printStackTrace();
-	}
-	return null;
+        List<Comment> comments = new ArrayList<>();
+        final List<KJavaComment> kJavaComments = new ArrayList<>();
+        CompilationUnit parser;
+        try {
+            parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
+            comments = parser.getComments();
+            for (final Comment c : comments) {
+                final Position begin = new Position.Builder().line(c.getRange().begin.line)
+                                                       .column(c.getRange().begin.column)
+                                                       .build();
+                final Position end = new Position.Builder().line(c.getRange().end.line)
+                                                     .column(c.getRange().end.column)
+                                                     .build();
+                kJavaComments.add(new KJavaComment.Builder().content(c.getContent())
+                                                            .type(c.getClass()
+                                                                   .getSimpleName())
+                                                            .range(new Range.Builder().begin(begin)
+                                                                                      .end(end)
+                                                                                      .build())
+                                                            .build());
+            }
+            return kJavaComments;
+        } catch (final ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

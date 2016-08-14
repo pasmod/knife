@@ -2,30 +2,30 @@ package de.hhu.knife.beans;
 
 @SuppressWarnings("unused")
 public class Position {
-    private int line;
-    private int column;
-
     public static class Builder {
-	private int line;
-	private int column;
+        private int line;
+        private int column;
 
-	public Builder line(int line) {
-	    this.line = line;
-	    return this;
-	}
+        public Position build() {
+            return new Position(this);
+        }
 
-	public Builder column(int column) {
-	    this.column = column;
-	    return this;
-	}
+        public Builder column(final int column) {
+            this.column = column;
+            return this;
+        }
 
-	public Position build() {
-	    return new Position(this);
-	}
+        public Builder line(final int line) {
+            this.line = line;
+            return this;
+        }
     }
+    private final int line;
 
-    private Position(Builder builder) {
-	this.line = builder.line;
-	this.column = builder.column;
+    private final int column;
+
+    private Position(final Builder builder) {
+        this.line = builder.line;
+        this.column = builder.column;
     }
 }
