@@ -42,7 +42,7 @@ public class Mapper {
                                        .build();
     }
 
-    public static KJavaField from(final JavaField javaField) {
+    private static KJavaField from(final JavaField javaField) {
         return new KJavaField.Builder().name(javaField.getName())
                                        .type(javaField.getType()
                                                       .getName())
@@ -50,7 +50,7 @@ public class Mapper {
                                        .build();
     }
 
-    public static KJavaMethod from(final JavaMethod javaMethod) {
+    private static KJavaMethod from(final JavaMethod javaMethod) {
         final List<KJavaParameter> kJavaParameters = javaMethod.getParameters()
                                                                .stream()
                                                                .map(jp -> from(jp))
@@ -72,7 +72,7 @@ public class Mapper {
                                            .build();
     }
 
-    public static KRange from(final Range range) {
+    private static KRange from(final Range range) {
         final KPosition begin = new KPosition.Builder().line(range.begin.line)
                                                        .column(range.begin.column)
                                                        .build();
