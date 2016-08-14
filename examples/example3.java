@@ -7,12 +7,22 @@ package de.hhu.knife;
 public class Example2 {
     int counter = 5;
 
+    /**
+     * Main method of the example
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
-        /*
-         * Block Comment 1 2 2
-         */
         System.out.println(2);
         System.out.println(3);
+    }
+    
+    public int add(int a, int b){
+        /*
+         * Block Comment
+         * Line 2
+         */
+        return a + b;
     }
 }
 
@@ -23,6 +33,11 @@ public class SecondClass {
         // Line Comment 2
     }
 
+    /**
+     * Main method of the example
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println(2);
     }

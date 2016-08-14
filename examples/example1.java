@@ -4,11 +4,13 @@ package de.hhu.knife;
  * This is an example for a file that consists of one
  * class and does not have any syntax errors.
  */
-public class Example {
+public class example1 {
     int counter = 5;
 
-    /*
-     * JavaDoc Comment 1
+    /**
+     * Main method of the example
+     * 
+     * @param args
      */
     public static void main(String[] args) {
         System.out.println(add(2, 3));
@@ -16,10 +18,10 @@ public class Example {
         System.out.println(add(2, 3));
     }
 
-    /*
-     * JavaDoc Comment 2 Second Line
-     */
     public static int add(final int a, final int b) {
+        /*
+         * Block Comment Line 2
+         */
         return a + b;
     }
 

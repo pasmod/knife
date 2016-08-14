@@ -21,7 +21,6 @@ public class SecondClass {
     public void print(int a) {
         System.out.println(a);
         // Line Comment 2
-    }
 
     public static void main(String[] args) {
         System.out.println(2);
