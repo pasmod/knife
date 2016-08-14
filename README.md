@@ -254,7 +254,6 @@ curl --data-urlencode "class=`cat examples/example2.java`" 0.0.0.0:4567/extract 
 Result will be a json as follows:
 ``` json
 {
-  {
   "classes": [
     {
       "fields": [
@@ -404,7 +403,6 @@ Result will be a json as follows:
     }
   ],
   "state": "OK"
-}
 }
 ```
 ##### /extract (when request consists of multiple parsable and non-parsable classes)
