@@ -33,89 +33,79 @@ import de.hhu.knife.beans.State;
 import de.hhu.knife.transformers.JsonTransformer;
 
 public class App {
-	private static final Logger logger = LoggerFactory.getLogger(App.class);
+  private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
+    // Configure Spark
+    port(4567);
+    post("/extract", "application/json", (request, response) -> {
+      final JavaProjectBuilder builder = new JavaProjectBuilder();
+      String queryParams = request.queryParams("class");
+      try {
+        builder.addSource(new StringReader(queryParams));
+      } catch (ParseException e) {
+        logger.error(String.format("Error whild parsing the code: %s", queryParams), e);
+        return new Segment.Builder().state(State.PARSE_ERROR).build();
+      } catch (RuntimeException e) {
+        logger.error(String.format("Something strange happend: %s", queryParams), e);
+        return new Segment.Builder().state(State.STRANGE).build();
+      }
 
-		// Configure Spark
-		port(4567);
+      List<KJavaClass> kJavaClasses = new ArrayList<>();
+      for (JavaClass javaClass : builder.getClasses().stream().collect(Collectors.toList())) {
+        List<KJavaComment> kJavaComments = extractComments(javaClass);
+        List<KJavaMethod> kJavaMethods = new ArrayList<>();
+        List<KJavaField> kJavaFields = new ArrayList<>();
+        for (JavaMethod javaMethod : javaClass.getMethods()) {
+          extractMethod(kJavaMethods, javaMethod);
+        }
+        for (JavaField javaField : javaClass.getFields()) {
+          KJavaField build = new KJavaField.Builder().fieldName(javaField.getName())
+              .type(javaField.getType().getName()).codeBlock(javaField.getCodeBlock()).build();
+          kJavaFields.add(build);
+        }
+        KJavaClass build = new KJavaClass.Builder().fields(kJavaFields).methods(kJavaMethods)
+            .packageName(javaClass.getPackageName()).name(javaClass.getName())
+            .comments(kJavaComments).isPrivate(javaClass.isPrivate()).isStatic(javaClass.isStatic())
+            .isPublic(javaClass.isPublic()).build();
+        kJavaClasses.add(build);
+      }
 
-		post("/extract", "application/json", (request, response) -> {
-			// TODO: It is necessary to init the builder for each request?
-			final JavaProjectBuilder builder = new JavaProjectBuilder();
-			// TODO: Exception handling for the case that query param does not
-			// exist
-			String queryParams = request.queryParams("class");
-			// TODO: The case strange should be investigated more. Why kinds of
-			// codes result in Strange?!
-			try {
-				builder.addSource(new StringReader(queryParams));
-			} catch (ParseException e) {
-				logger.error(String.format("Error whild parsing the code: %s", queryParams), e);
-				return new Segment.Builder().state(State.PARSE_ERROR).build();
-			} catch (RuntimeException e) {
-				logger.error(String.format("Something strange happend: %s", queryParams), e);
-				return new Segment.Builder().state(State.STRANGE).build();
-			}
+      Segment segment = new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
+      return segment;
 
-			List<KJavaClass> kJavaClasses = new ArrayList<>();
-			for (JavaClass javaClass : builder.getClasses().stream().collect(Collectors.toList())) {
-				List<Comment> comments = new ArrayList<>();
-				List<KJavaComment> kJavaComments = new ArrayList<>();
-				try {
-					if (javaClass.getNestedClasses().size() == 1) {
-						CompilationUnit parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
+    }, new JsonTransformer());
+  }
 
-						comments = parser.getComments();
-						for (Comment c : comments) {
-							Position begin = new Position.Builder().line(c.getRange().begin.line)
-									.column(c.getRange().begin.column).build();
-							Position end = new Position.Builder().line(c.getRange().end.line)
-									.column(c.getRange().end.column).build();
-							kJavaComments.add(new KJavaComment.Builder().content(c.getContent())
-									.type(c.getClass().getSimpleName())
-									.range(new Range.Builder().begin(begin).end(end).build()).build());
-						}
-					} else {
-						for (JavaClass cc : javaClass.getNestedClasses()) {
-							CompilationUnit parser = JavaParser.parse(new StringReader(cc.getCodeBlock()));
+  private static void extractMethod(List<KJavaMethod> kJavaMethods, JavaMethod javaMethod) {
+    List<KJavaParameter> javaParameters = new ArrayList<>();
+    for (JavaParameter javaParameter : javaMethod.getParameters()) {
+      javaParameters.add(new KJavaParameter.Builder().type(javaParameter.getType().getValue())
+          .name(javaParameter.getName()).build());
+    }
+    kJavaMethods.add(new KJavaMethod.Builder().parameters(javaParameters)
+        .codeBlock(javaMethod.getCodeBlock()).sourceCode(javaMethod.getSourceCode())
+        .name(javaMethod.getName()).isPublic(javaMethod.isPublic())
+        .isPrivate(javaMethod.isPrivate()).isStatic(javaMethod.isStatic()).build());
+  }
 
-							comments = parser.getComments();
-							for (Comment c : comments) {
-								Position begin = new Position.Builder().line(c.getRange().begin.line)
-										.column(c.getRange().begin.column).build();
-								Position end = new Position.Builder().line(c.getRange().end.line)
-										.column(c.getRange().end.column).build();
-								kJavaComments.add(new KJavaComment.Builder().content(c.getContent())
-										.type(c.getClass().getSimpleName())
-										.range(new Range.Builder().begin(begin).end(end).build()).build());
-							}
-						}
+  private static List<KJavaComment> extractComments(JavaClass javaClass)
+      throws com.github.javaparser.ParseException {
+    List<Comment> comments = new ArrayList<>();
+    List<KJavaComment> kJavaComments = new ArrayList<>();
+    CompilationUnit parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
 
-					}
-				} catch (Exception e) {
-				}
-				List<KJavaMethod> kJavaMethods = new ArrayList<>();
-				List<KJavaField> kJavaFields = new ArrayList<>();
-				for (JavaMethod javaMethod : javaClass.getMethods()) {
-					List<KJavaParameter> javaParameters = new ArrayList<>();
-					for (JavaParameter javaParameter : javaMethod.getParameters()) {
-						javaParameters.add(new KJavaParameter.Builder().parameterInformation(javaParameter).build());
-					}
-					kJavaMethods.add(
-							new KJavaMethod.Builder().methodInformation(javaMethod).parameters(javaParameters).build());
-				}
-				for (JavaField javaField : javaClass.getFields()) {
-					kJavaFields.add(new KJavaField.Builder().fieldInformation(javaField).build());
-				}
-				kJavaClasses.add(new KJavaClass.Builder().classInformation(javaClass).methods(kJavaMethods)
-						.fields(kJavaFields).comments(kJavaComments).build());
-			}
-
-			Segment segment = new Segment.Builder().classes(kJavaClasses).state(State.OK).build();
-			return segment;
-
-		}, new JsonTransformer());
-	}
+    comments = parser.getComments();
+    for (Comment c : comments) {
+      Position begin = new Position.Builder().line(c.getRange().begin.line)
+          .column(c.getRange().begin.column).build();
+      Position end = new Position.Builder().line(c.getRange().end.line)
+          .column(c.getRange().end.column).build();
+      kJavaComments
+          .add(new KJavaComment.Builder().content(c.getContent()).type(c.getClass().getSimpleName())
+              .range(new Range.Builder().begin(begin).end(end).build()).build());
+    }
+    return kJavaComments;
+  }
 
 }
