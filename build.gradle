@@ -11,11 +11,12 @@ targetCompatibility = 1.8
 repositories { mavenCentral() }
 
 dependencies {
+    compile 'org.projectlombok:lombok:1.16.10'
     compile 'com.github.javaparser:javaparser-core:2.5.1'
 	compile 'com.google.code.gson:gson:2.7'
 	compile 'org.slf4j:slf4j-simple:1.7.21'
 	compile 'org.slf4j:slf4j-api:1.7.21'
-	compile "com.sparkjava:spark-core:2.5"
+	compile 'com.sparkjava:spark-core:2.5'
 	compile 'com.thoughtworks.qdox:qdox:2.0-M3'
 	testCompile 'junit:junit:4.11'
 	testCompile 'org.hamcrest:hamcrest-all:1.3'
