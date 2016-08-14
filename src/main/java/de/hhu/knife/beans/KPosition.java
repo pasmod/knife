@@ -20,6 +20,7 @@ public class KPosition {
             return this;
         }
     }
+
     private final int line;
 
     private final int column;

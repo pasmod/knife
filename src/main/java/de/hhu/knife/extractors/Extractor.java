@@ -21,7 +21,7 @@ public class Extractor {
 
     public static List<KJavaComment> extractComments(final JavaClass javaClass) {
         try {
-            CompilationUnit parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
+            final CompilationUnit parser = JavaParser.parse(new StringReader(javaClass.getCodeBlock()));
             return parser.getComments()
                          .stream()
                          .map(c -> Mapper.from(c))

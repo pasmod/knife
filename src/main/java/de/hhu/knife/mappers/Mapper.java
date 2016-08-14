@@ -21,6 +21,14 @@ import de.hhu.knife.extractors.Extractor;
 
 public class Mapper {
 
+    public static KJavaComment from(final Comment comment) {
+        return new KJavaComment.Builder().content(comment.getContent())
+                                         .type(comment.getClass()
+                                                      .getSimpleName())
+                                         .range(Mapper.from(comment.getRange()))
+                                         .build();
+    }
+
     public static KJavaClass from(final JavaClass javaClass) {
         final List<KJavaField> kJavaFields = javaClass.getFields()
                                                       .stream()
@@ -82,14 +90,6 @@ public class Mapper {
         return new KRange.Builder().begin(begin)
                                    .end(end)
                                    .build();
-    }
-
-    public static KJavaComment from(final Comment comment) {
-        return new KJavaComment.Builder().content(comment.getContent())
-                                         .type(comment.getClass()
-                                                      .getSimpleName())
-                                         .range(Mapper.from(comment.getRange()))
-                                         .build();
     }
 
 }

@@ -22,6 +22,7 @@ public class Segment {
             return this;
         }
     }
+
     private final List<KJavaClass> classes;
 
     private final State state;

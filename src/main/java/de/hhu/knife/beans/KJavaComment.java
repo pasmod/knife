@@ -26,6 +26,7 @@ public class KJavaComment {
             return this;
         }
     }
+
     private final String type;
     private final String content;
 

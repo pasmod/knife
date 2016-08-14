@@ -40,13 +40,13 @@ public class App {
             }
 
             final List<KJavaClass> kJavaClasses = builder.getClasses()
-                                                   .stream()
-                                                   .map(jc -> Mapper.from(jc))
-                                                   .collect(Collectors.toList());
+                                                         .stream()
+                                                         .map(jc -> Mapper.from(jc))
+                                                         .collect(Collectors.toList());
 
             final Segment segment = new Segment.Builder().classes(kJavaClasses)
-                                                   .state(State.OK)
-                                                   .build();
+                                                         .state(State.OK)
+                                                         .build();
             return segment;
 
         }, new JsonTransformer());

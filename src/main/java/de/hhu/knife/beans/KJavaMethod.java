@@ -52,6 +52,7 @@ public class KJavaMethod {
             return this;
         }
     }
+
     private final List<KJavaParameter> parameters;
     private final String codeBlock;
     private final String sourceCode;

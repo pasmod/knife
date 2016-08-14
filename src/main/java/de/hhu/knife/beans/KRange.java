@@ -20,6 +20,7 @@ public class KRange {
             return this;
         }
     }
+
     private final KPosition begin;
 
     private final KPosition end;

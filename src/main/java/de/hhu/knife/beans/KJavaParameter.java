@@ -20,6 +20,7 @@ public class KJavaParameter {
             return this;
         }
     }
+
     private final String type;
 
     private final String name;

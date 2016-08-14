@@ -26,6 +26,7 @@ public class KJavaField {
             return this;
         }
     }
+
     private final String codeBlock;
     private final String type;
 

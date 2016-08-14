@@ -58,6 +58,7 @@ public class KJavaClass {
             return this;
         }
     }
+
     private final List<KJavaField> fields;
     private final String packageName;
     private final String name;
