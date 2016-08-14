@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.github.javaparser.Range;
+import com.github.javaparser.ast.comments.Comment;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
@@ -81,6 +82,14 @@ public class Mapper {
         return new KRange.Builder().begin(begin)
                                    .end(end)
                                    .build();
+    }
+
+    public static KJavaComment from(final Comment comment) {
+        return new KJavaComment.Builder().content(comment.getContent())
+                                         .type(comment.getClass()
+                                                      .getSimpleName())
+                                         .range(Mapper.from(comment.getRange()))
+                                         .build();
     }
 
 }
