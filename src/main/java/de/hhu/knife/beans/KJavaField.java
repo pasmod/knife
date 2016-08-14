@@ -4,12 +4,12 @@ package de.hhu.knife.beans;
 public class KJavaField {
   private String codeBlock;
   private String type;
-  private String fieldName;
+  private String name;
 
   public static class Builder {
     private String codeBlock;
     private String type;
-    private String fieldName;
+    private String name;
 
     public Builder codeBlock(String codeBlock) {
       this.codeBlock = codeBlock;
@@ -21,8 +21,8 @@ public class KJavaField {
       return this;
     }
 
-    public Builder fieldName(String fieldName) {
-      this.fieldName = fieldName;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
@@ -34,6 +34,6 @@ public class KJavaField {
   private KJavaField(Builder builder) {
     this.codeBlock = builder.codeBlock;
     this.type = builder.type;
-    this.fieldName = builder.fieldName;
+    this.name = builder.name;
   }
 }

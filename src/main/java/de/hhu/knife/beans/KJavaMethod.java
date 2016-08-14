@@ -7,7 +7,7 @@ public class KJavaMethod {
   private List<KJavaParameter> parameters;
   private String codeBlock;
   private String sourceCode;
-  private String methodName;
+  private String name;
   private boolean isStatic;
   private boolean isPrivate;
   private boolean isPublic;
@@ -16,7 +16,7 @@ public class KJavaMethod {
     private List<KJavaParameter> parameters;
     private String codeBlock;
     private String sourceCode;
-    private String methodName;
+    private String name;
     private boolean isStatic;
     private boolean isPrivate;
     private boolean isPublic;
@@ -36,8 +36,8 @@ public class KJavaMethod {
       return this;
     }
 
-    public Builder methodName(String methodName) {
-      this.methodName = methodName;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
@@ -65,7 +65,7 @@ public class KJavaMethod {
     this.parameters = builder.parameters;
     this.codeBlock = builder.codeBlock;
     this.sourceCode = builder.sourceCode;
-    this.methodName = builder.methodName;
+    this.name = builder.name;
     this.isStatic = builder.isStatic;
     this.isPrivate = builder.isPrivate;
     this.isPublic = builder.isPublic;

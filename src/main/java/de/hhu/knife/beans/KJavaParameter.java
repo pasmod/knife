@@ -3,19 +3,19 @@ package de.hhu.knife.beans;
 @SuppressWarnings("unused")
 public class KJavaParameter {
   private String type;
-  private String parameterName;
+  private String name;
 
   public static class Builder {
     private String type;
-    private String parameterName;
+    private String name;
 
     public Builder type(String type) {
       this.type = type;
       return this;
     }
 
-    public Builder parameterName(String parameterName) {
-      this.parameterName = parameterName;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
@@ -26,6 +26,6 @@ public class KJavaParameter {
 
   private KJavaParameter(Builder builder) {
     this.type = builder.type;
-    this.parameterName = builder.parameterName;
+    this.name = builder.name;
   }
 }
