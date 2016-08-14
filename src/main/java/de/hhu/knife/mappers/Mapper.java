@@ -17,33 +17,32 @@ import de.hhu.knife.extractors.Extractor;
 
 public class Mapper {
 
-  public static KJavaMethod from(final JavaMethod javaMethod) {
-    List<KJavaParameter> kJavaParameters =
-        javaMethod.getParameters().stream().map(jp -> from(jp)).collect(Collectors.toList());
-    return new KJavaMethod.Builder().parameters(kJavaParameters)
-        .codeBlock(javaMethod.getCodeBlock()).sourceCode(javaMethod.getSourceCode())
-        .name(javaMethod.getName()).isPublic(javaMethod.isPublic())
-        .isPrivate(javaMethod.isPrivate()).isStatic(javaMethod.isStatic()).build();
-  }
+    public static KJavaMethod from(final JavaMethod javaMethod) {
+	List<KJavaParameter> kJavaParameters = javaMethod.getParameters().stream().map(jp -> from(jp))
+		.collect(Collectors.toList());
+	return new KJavaMethod.Builder().parameters(kJavaParameters).codeBlock(javaMethod.getCodeBlock())
+		.sourceCode(javaMethod.getSourceCode()).name(javaMethod.getName()).isPublic(javaMethod.isPublic())
+		.isPrivate(javaMethod.isPrivate()).isStatic(javaMethod.isStatic()).build();
+    }
 
-  private static KJavaParameter from(final JavaParameter javaParameter) {
-    return new KJavaParameter.Builder().type(javaParameter.getType().getValue())
-        .name(javaParameter.getName()).build();
-  }
+    private static KJavaParameter from(final JavaParameter javaParameter) {
+	return new KJavaParameter.Builder().type(javaParameter.getType().getValue()).name(javaParameter.getName())
+		.build();
+    }
 
-  public static KJavaClass from(final JavaClass javaClass) {
-    List<KJavaField> kJavaFields = javaClass.getFields().stream().map(jf -> from(jf)).collect(Collectors.toList());
-    List<KJavaMethod> kJavaMethods = javaClass.getMethods().stream().map(jm -> from(jm)).collect(Collectors.toList());
-    List<KJavaComment> kJavaComments = Extractor.extractComments(javaClass);
-    return new KJavaClass.Builder().fields(kJavaFields).methods(kJavaMethods)
-        .packageName(javaClass.getPackageName()).name(javaClass.getName()).comments(kJavaComments)
-        .isPrivate(javaClass.isPrivate()).isStatic(javaClass.isStatic())
-        .isPublic(javaClass.isPublic()).build();
-  }
+    public static KJavaClass from(final JavaClass javaClass) {
+	List<KJavaField> kJavaFields = javaClass.getFields().stream().map(jf -> from(jf)).collect(Collectors.toList());
+	List<KJavaMethod> kJavaMethods = javaClass.getMethods().stream().map(jm -> from(jm))
+		.collect(Collectors.toList());
+	List<KJavaComment> kJavaComments = Extractor.extractComments(javaClass);
+	return new KJavaClass.Builder().fields(kJavaFields).methods(kJavaMethods)
+		.packageName(javaClass.getPackageName()).name(javaClass.getName()).comments(kJavaComments)
+		.isPrivate(javaClass.isPrivate()).isStatic(javaClass.isStatic()).isPublic(javaClass.isPublic()).build();
+    }
 
-  public static KJavaField from(final JavaField javaField) {
-    return new KJavaField.Builder().name(javaField.getName()).type(javaField.getType().getName())
-        .codeBlock(javaField.getCodeBlock()).build();
-  }
+    public static KJavaField from(final JavaField javaField) {
+	return new KJavaField.Builder().name(javaField.getName()).type(javaField.getType().getName())
+		.codeBlock(javaField.getCodeBlock()).build();
+    }
 
 }
