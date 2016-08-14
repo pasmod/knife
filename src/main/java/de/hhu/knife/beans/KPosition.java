@@ -1,13 +1,13 @@
 package de.hhu.knife.beans;
 
 @SuppressWarnings("unused")
-public class Position {
+public class KPosition {
     public static class Builder {
         private int line;
         private int column;
 
-        public Position build() {
-            return new Position(this);
+        public KPosition build() {
+            return new KPosition(this);
         }
 
         public Builder column(final int column) {
@@ -24,7 +24,7 @@ public class Position {
 
     private final int column;
 
-    private Position(final Builder builder) {
+    private KPosition(final Builder builder) {
         this.line = builder.line;
         this.column = builder.column;
     }
