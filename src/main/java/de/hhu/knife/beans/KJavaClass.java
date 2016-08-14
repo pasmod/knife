@@ -2,66 +2,88 @@ package de.hhu.knife.beans;
 
 import java.util.List;
 
-import com.thoughtworks.qdox.model.JavaClass;
-
+@SuppressWarnings("unused")
 public class KJavaClass {
-	@SuppressWarnings("unused")
-	private List<KJavaField> fields;
-	@SuppressWarnings("unused")
-	private List<KJavaMethod> methods;
-	@SuppressWarnings("unused")
-	private boolean implementsInterfaces;
-	@SuppressWarnings("unused")
-	private boolean isStatic;
-	@SuppressWarnings("unused")
-	private boolean isPrivate;
-	@SuppressWarnings("unused")
-	private boolean isPublic;
-	@SuppressWarnings("unused")
-	private String packageName;
-	@SuppressWarnings("unused")
-	private String className;
-	@SuppressWarnings("unused")
-	private List<KJavaComment> comments;
+  private List<KJavaField> fields;
+  private List<KJavaMethod> methods;
+  private String packageName;
+  private String className;
+  private List<KJavaComment> comments;
+  private boolean implementsInterfaces;
+  private boolean isStatic;
+  private boolean isPrivate;
+  private boolean isPublic;
 
-	public static class Builder {
-		private List<KJavaMethod> methods;
-		private List<KJavaField> fields;
-		private JavaClass javaClass;
-		private List<KJavaComment> comments;
+  public static class Builder {
+    private List<KJavaField> fields;
+    private List<KJavaMethod> methods;
+    private String packageName;
+    private String className;
+    private List<KJavaComment> comments;
+    private boolean implementsInterfaces;
+    private boolean isStatic;
+    private boolean isPrivate;
+    private boolean isPublic;
 
-		public Builder methods(List<KJavaMethod> methods) {
-			this.methods = methods;
-			return this;
-		}
+    public Builder fields(List<KJavaField> fields) {
+      this.fields = fields;
+      return this;
+    }
 
-		public Builder fields(List<KJavaField> fields) {
-			this.fields = fields;
-			return this;
-		}
+    public Builder methods(List<KJavaMethod> methods) {
+      this.methods = methods;
+      return this;
+    }
 
-		public Builder classInformation(JavaClass javaClass) {
-			this.javaClass = javaClass;
-			return this;
-		}
+    public Builder packageName(String packageName) {
+      this.packageName = packageName;
+      return this;
+    }
 
-		public Builder comments(List<KJavaComment> comments) {
-			this.comments = comments;
-			return this;
-		}
+    public Builder className(String className) {
+      this.className = className;
+      return this;
+    }
 
-		public KJavaClass build() {
-			KJavaClass kJavaClass = new KJavaClass();
-			kJavaClass.className = javaClass.getName();
-			kJavaClass.isPublic = javaClass.isPublic();
-			kJavaClass.isPrivate = javaClass.isPrivate();
-			kJavaClass.isStatic = javaClass.isStatic();
-			kJavaClass.packageName = javaClass.getPackageName();
-			kJavaClass.implementsInterfaces = javaClass.getInterfaces().size() > 0;
-			kJavaClass.methods = methods;
-			kJavaClass.fields = fields;
-			kJavaClass.comments = comments;
-			return kJavaClass;
-		}
-	}
+    public Builder comments(List<KJavaComment> comments) {
+      this.comments = comments;
+      return this;
+    }
+
+    public Builder implementsInterfaces(boolean implementsInterfaces) {
+      this.implementsInterfaces = implementsInterfaces;
+      return this;
+    }
+
+    public Builder isStatic(boolean isStatic) {
+      this.isStatic = isStatic;
+      return this;
+    }
+
+    public Builder isPrivate(boolean isPrivate) {
+      this.isPrivate = isPrivate;
+      return this;
+    }
+
+    public Builder isPublic(boolean isPublic) {
+      this.isPublic = isPublic;
+      return this;
+    }
+
+    public KJavaClass build() {
+      return new KJavaClass(this);
+    }
+  }
+
+  private KJavaClass(Builder builder) {
+    this.fields = builder.fields;
+    this.methods = builder.methods;
+    this.packageName = builder.packageName;
+    this.className = builder.className;
+    this.comments = builder.comments;
+    this.implementsInterfaces = builder.implementsInterfaces;
+    this.isStatic = builder.isStatic;
+    this.isPrivate = builder.isPrivate;
+    this.isPublic = builder.isPublic;
+  }
 }

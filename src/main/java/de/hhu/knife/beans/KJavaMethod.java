@@ -2,49 +2,72 @@ package de.hhu.knife.beans;
 
 import java.util.List;
 
-import com.thoughtworks.qdox.model.JavaMethod;
-
+@SuppressWarnings("unused")
 public class KJavaMethod {
+  private List<KJavaParameter> parameters;
+  private String codeBlock;
+  private String sourceCode;
+  private String methodName;
+  private boolean isStatic;
+  private boolean isPrivate;
+  private boolean isPublic;
 
-	@SuppressWarnings("unused")
-	private List<KJavaParameter> parameters;
-	@SuppressWarnings("unused")
-	private String codeBlock;
-	@SuppressWarnings("unused")
-	private String sourceCode;
-	@SuppressWarnings("unused")
-	private boolean isStatic;
-	@SuppressWarnings("unused")
-	private boolean isPrivate;
-	@SuppressWarnings("unused")
-	private boolean isPublic;
-	@SuppressWarnings("unused")
-	private String methodName;
+  public static class Builder {
+    private List<KJavaParameter> parameters;
+    private String codeBlock;
+    private String sourceCode;
+    private String methodName;
+    private boolean isStatic;
+    private boolean isPrivate;
+    private boolean isPublic;
 
-	public static class Builder {
-		private JavaMethod javaMethod;
-		private List<KJavaParameter> parameters;
+    public Builder parameters(List<KJavaParameter> parameters) {
+      this.parameters = parameters;
+      return this;
+    }
 
-		public Builder methodInformation(JavaMethod javaMethod) {
-			this.javaMethod = javaMethod;
-			return this;
-		}
+    public Builder codeBlock(String codeBlock) {
+      this.codeBlock = codeBlock;
+      return this;
+    }
 
-		public Builder parameters(List<KJavaParameter> parameters) {
-			this.parameters = parameters;
-			return this;
-		}
+    public Builder sourceCode(String sourceCode) {
+      this.sourceCode = sourceCode;
+      return this;
+    }
 
-		public KJavaMethod build() {
-			KJavaMethod kJavaMethod = new KJavaMethod();
-			kJavaMethod.codeBlock = javaMethod.getCodeBlock();
-			kJavaMethod.sourceCode = javaMethod.getSourceCode();
-			kJavaMethod.methodName = javaMethod.getName();
-			kJavaMethod.isPublic = javaMethod.isPublic();
-			kJavaMethod.isPrivate = javaMethod.isPrivate();
-			kJavaMethod.isStatic = javaMethod.isStatic();
-			kJavaMethod.parameters = this.parameters;
-			return kJavaMethod;
-		}
-	}
+    public Builder methodName(String methodName) {
+      this.methodName = methodName;
+      return this;
+    }
+
+    public Builder isStatic(boolean isStatic) {
+      this.isStatic = isStatic;
+      return this;
+    }
+
+    public Builder isPrivate(boolean isPrivate) {
+      this.isPrivate = isPrivate;
+      return this;
+    }
+
+    public Builder isPublic(boolean isPublic) {
+      this.isPublic = isPublic;
+      return this;
+    }
+
+    public KJavaMethod build() {
+      return new KJavaMethod(this);
+    }
+  }
+
+  private KJavaMethod(Builder builder) {
+    this.parameters = builder.parameters;
+    this.codeBlock = builder.codeBlock;
+    this.sourceCode = builder.sourceCode;
+    this.methodName = builder.methodName;
+    this.isStatic = builder.isStatic;
+    this.isPrivate = builder.isPrivate;
+    this.isPublic = builder.isPublic;
+  }
 }

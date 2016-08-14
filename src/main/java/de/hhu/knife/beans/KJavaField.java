@@ -1,26 +1,39 @@
 package de.hhu.knife.beans;
 
-import com.thoughtworks.qdox.model.*;
-
+@SuppressWarnings("unused")
 public class KJavaField {
-	private String codeBlock;
-	private String type;
-	private String fieldName;
+  private String codeBlock;
+  private String type;
+  private String fieldName;
 
-	public static class Builder {
-		private JavaField javaField;
+  public static class Builder {
+    private String codeBlock;
+    private String type;
+    private String fieldName;
 
-		public Builder fieldInformation(JavaField javaField) {
-			this.javaField = javaField;
-			return this;
-		}
+    public Builder codeBlock(String codeBlock) {
+      this.codeBlock = codeBlock;
+      return this;
+    }
 
-		public KJavaField build() {
-			KJavaField kJavaField = new KJavaField();
-			kJavaField.codeBlock = this.javaField.getCodeBlock();
-			kJavaField.type = this.javaField.getType().toString();
-			kJavaField.fieldName = this.javaField.getName();
-			return kJavaField;
-		}
-	}
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder fieldName(String fieldName) {
+      this.fieldName = fieldName;
+      return this;
+    }
+
+    public KJavaField build() {
+      return new KJavaField(this);
+    }
+  }
+
+  private KJavaField(Builder builder) {
+    this.codeBlock = builder.codeBlock;
+    this.type = builder.type;
+    this.fieldName = builder.fieldName;
+  }
 }
