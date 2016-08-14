@@ -6,11 +6,11 @@ import spark.ResponseTransformer;
 
 public class JsonTransformer implements ResponseTransformer {
 
-	private Gson gson = new Gson();
+  private Gson gson = new Gson();
 
-	@Override
-	public String render(Object model) {
-		return gson.toJson(model);
-	}
+  @Override
+  public String render(Object model) {
+    return gson.toJson(model);
+  }
 
 }
