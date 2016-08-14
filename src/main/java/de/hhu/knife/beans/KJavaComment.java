@@ -5,7 +5,7 @@ public class KJavaComment {
     public static class Builder {
         private String type;
         private String content;
-        private Range range;
+        private KRange range;
 
         public KJavaComment build() {
             return new KJavaComment(this);
@@ -16,7 +16,7 @@ public class KJavaComment {
             return this;
         }
 
-        public Builder range(final Range range) {
+        public Builder range(final KRange range) {
             this.range = range;
             return this;
         }
@@ -29,7 +29,7 @@ public class KJavaComment {
     private final String type;
     private final String content;
 
-    private final Range range;
+    private final KRange range;
 
     private KJavaComment(final Builder builder) {
         this.type = builder.type;
