@@ -23,7 +23,6 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(final String[] args) {
-        // Configure Spark
         port(4567);
         post("/extract", "application/json", (request, response) -> {
             final JavaProjectBuilder builder = new JavaProjectBuilder();
