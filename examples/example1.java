@@ -1,5 +1,24 @@
 package de.hhu.knife;
 
+import static spark.Spark.port;
+import static spark.Spark.post;
+
+import java.io.StringReader;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.parser.ParseException;
+
+import de.hhu.knife.beans.KJavaClass;
+import de.hhu.knife.beans.Segment;
+import de.hhu.knife.beans.State;
+import de.hhu.knife.mappers.Mapper;
+import de.hhu.knife.transformers.JsonTransformer;
+
 /*
  * This is an example for a file that consists of one
  * class and does not have any syntax errors.
@@ -9,7 +28,7 @@ public class example1 {
 
     /**
      * Main method of the example
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
