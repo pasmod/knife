@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.model.JavaSource;
 import com.thoughtworks.qdox.parser.ParseException;
 
 import de.hhu.knife.beans.KJavaClass;
@@ -24,11 +25,21 @@ public class App {
 
     public static void main(final String[] args) {
         port(4567);
-        post("/extract", "application/json", (request, response) -> {
+        post("/extract", "application/json; charset=utf-8", (request, response) -> {
             final JavaProjectBuilder builder = new JavaProjectBuilder();
             final String queryParams = request.queryParams("class");
             try {
-                builder.addSource(new StringReader(queryParams));
+                JavaSource src = builder.addSource(new StringReader(queryParams));
+                final List<KJavaClass> kJavaClasses = builder.getClasses()
+                                                             .stream()
+                                                             .map(jc -> Mapper.from(jc))
+                                                             .collect(Collectors.toList());
+
+                final Segment segment = new Segment.Builder().classes(kJavaClasses)
+                                                             .state(State.OK)
+                                                             .imports(src.getImports())
+                                                             .build();
+                return segment;
             } catch (final ParseException e) {
                 logger.error(String.format("Error whild parsing the code: %s", queryParams), e);
                 return new Segment.Builder().state(State.PARSE_ERROR)
@@ -38,16 +49,6 @@ public class App {
                 return new Segment.Builder().state(State.STRANGE)
                                             .build();
             }
-
-            final List<KJavaClass> kJavaClasses = builder.getClasses()
-                                                         .stream()
-                                                         .map(jc -> Mapper.from(jc))
-                                                         .collect(Collectors.toList());
-
-            final Segment segment = new Segment.Builder().classes(kJavaClasses)
-                                                         .state(State.OK)
-                                                         .build();
-            return segment;
 
         }, new JsonTransformer());
     }
