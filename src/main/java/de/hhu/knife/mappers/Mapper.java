@@ -18,6 +18,7 @@ import de.hhu.knife.beans.KJavaParameter;
 import de.hhu.knife.beans.KPosition;
 import de.hhu.knife.beans.KRange;
 import de.hhu.knife.extractors.Extractor;
+import de.hhu.knife.extractors.VariableExtractor;
 
 public class Mapper {
 
@@ -67,6 +68,7 @@ public class Mapper {
                                         .codeBlock(javaMethod.getCodeBlock())
                                         .sourceCode(javaMethod.getSourceCode())
                                         .name(javaMethod.getName())
+                                        .variables(VariableExtractor.getVariables(javaMethod.getCodeBlock()))
                                         .isPublic(javaMethod.isPublic())
                                         .isPrivate(javaMethod.isPrivate())
                                         .isStatic(javaMethod.isStatic())

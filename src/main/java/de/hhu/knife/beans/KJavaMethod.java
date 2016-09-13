@@ -6,7 +6,8 @@ import java.util.List;
 public class KJavaMethod {
     public static class Builder {
         private List<KJavaParameter> parameters;
-        private String codeBlock;
+        private List<String> variables;
+        public String codeBlock;
         private String sourceCode;
         private String name;
         private boolean isStatic;
@@ -46,6 +47,11 @@ public class KJavaMethod {
             this.parameters = parameters;
             return this;
         }
+        
+        public Builder variables(final List<String> variables) {
+            this.variables = variables;
+            return this;
+        }
 
         public Builder sourceCode(final String sourceCode) {
             this.sourceCode = sourceCode;
@@ -59,7 +65,7 @@ public class KJavaMethod {
     private final String name;
     private final boolean isStatic;
     private final boolean isPrivate;
-
+    private final List<String> variables;
     private final boolean isPublic;
 
     private KJavaMethod(final Builder builder) {
@@ -70,5 +76,6 @@ public class KJavaMethod {
         this.isStatic = builder.isStatic;
         this.isPrivate = builder.isPrivate;
         this.isPublic = builder.isPublic;
+        this.variables = builder.variables;
     }
 }
