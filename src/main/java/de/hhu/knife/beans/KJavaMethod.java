@@ -7,7 +7,7 @@ public class KJavaMethod {
     public static class Builder {
         private List<KJavaParameter> parameters;
         private List<String> variables;
-        public String codeBlock;
+        private String codeBlock;
         private String sourceCode;
         private String name;
         private boolean isStatic;
