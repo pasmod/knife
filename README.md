@@ -244,15 +244,25 @@ package de.hhu.knife;
  * This is an example of a file that consists of two
  * classes and none of the classes have a syntax error.
  */
-public class Example2 {
+public class Example3 {
     int counter = 5;
 
+    /**
+     * Main method of the example
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        /*
-         * Block Comment 1 2 2
-         */
         System.out.println(2);
         System.out.println(3);
+    }
+
+    public int add(int a, int b){
+        /*
+         * Block Comment
+         * Line 2
+         */
+        return a + b;
     }
 }
 
@@ -263,10 +273,16 @@ public class SecondClass {
         // Line Comment 2
     }
 
+    /**
+     * Main method of the example
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println(2);
     }
 }
+
 ```
 ``` bash
 curl --data-urlencode "class=`cat examples/example3.java`" 0.0.0.0:4567/extract | jq .
@@ -441,7 +457,7 @@ package de.hhu.knife;
  * This is an example of a file consisting of two
  * classes and the second class has a syntax error.
  */
-public class Example2 {
+public class Example4 {
     int counter = 5;
 
     public static void main(String[] args) {
