@@ -4,7 +4,7 @@ package de.hhu.knife;
  * This is an example of a file that consists of two
  * classes and none of the classes have a syntax error.
  */
-public class Example2 {
+public class Example3 {
     int counter = 5;
 
     /**

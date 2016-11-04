@@ -4,7 +4,7 @@ package de.hhu.knife;
  * This is an example of a file consisting of two
  * classes and the second class has a syntax error.
  */
-public class Example2 {
+public class Example4 {
     int counter = 5;
 
     public static void main(String[] args) {
