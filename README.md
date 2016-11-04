@@ -73,120 +73,140 @@ curl --data-urlencode "class=`cat examples/example1.java`" 0.0.0.0:4567/extract 
 Result will be a json as follows:
 ```json
 {
+  "imports": [
+    "static spark.Spark.port",
+    "static spark.Spark.post",
+    "java.io.StringReader",
+    "java.util.List",
+    "java.util.stream.Collectors",
+    "org.slf4j.Logger",
+    "org.slf4j.LoggerFactory",
+    "com.thoughtworks.qdox.JavaProjectBuilder",
+    "com.thoughtworks.qdox.parser.ParseException",
+    "de.hhu.knife.beans.KJavaClass",
+    "de.hhu.knife.beans.Segment",
+    "de.hhu.knife.beans.State",
+    "de.hhu.knife.mappers.Mapper",
+    "de.hhu.knife.transformers.JsonTransformer"
+  ],
+  "state": "OK",
   "classes": [
     {
-      "fields": [
-        {
-          "codeBlock": "int counter = 5;\n",
-          "type": "int",
-          "name": "counter"
-        }
-      ],
-      "packageName": "de.hhu.knife",
-      "name": "example1",
-      "methods": [
-        {
-          "parameters": [
-            {
-              "type": "String",
-              "name": "args"
-            }
-          ],
-          "codeBlock": "/**\n * Main method of the example\n *\n * @param args\n */\npublic static void main(java.lang.String[] args) {\n\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n    }\n",
-          "sourceCode": "\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n    ",
-          "name": "main",
-          "isStatic": true,
-          "isPrivate": false,
-          "isPublic": true
-        },
-        {
-          "parameters": [
-            {
-              "type": "int",
-              "name": "a"
-            },
-            {
-              "type": "int",
-              "name": "b"
-            }
-          ],
-          "codeBlock": "public static int add(int a, int b) {\n\n        /*\n         * Block Comment\n         * Line 2\n         */\n        return a + b;\n    }\n",
-          "sourceCode": "\n        /*\n         * Block Comment\n         * Line 2\n         */\n        return a + b;\n    ",
-          "name": "add",
-          "isStatic": true,
-          "isPrivate": false,
-          "isPublic": true
-        },
-        {
-          "parameters": [
-            {
-              "type": "double",
-              "name": "a"
-            },
-            {
-              "type": "double",
-              "name": "b"
-            }
-          ],
-          "codeBlock": "public double divide(double a, double b) {\n\n        return 1.0 * a / b; // Line Comment 1\n    }\n",
-          "sourceCode": "\n        return 1.0 * a / b; // Line Comment 1\n    ",
-          "name": "divide",
-          "isStatic": false,
-          "isPrivate": false,
-          "isPublic": true
-        }
-      ],
+      "isPublic": true,
+      "isPrivate": false,
+      "isStatic": false,
       "comments": [
         {
-          "type": "JavadocComment",
+          "range": {
+            "end": {
+              "column": 8,
+              "line": 9
+            },
+            "begin": {
+              "column": 5,
+              "line": 5
+            }
+          },
           "content": "\n\t * Main method of the example\n\t *\n\t * @param args\n\t ",
-          "range": {
-            "begin": {
-              "line": 5,
-              "column": 5
-            },
-            "end": {
-              "line": 9,
-              "column": 8
-            }
-          }
+          "type": "JavadocComment"
         },
         {
-          "type": "BlockComment",
-          "content": "\n         * Block Comment\n         * Line 2\n         ",
           "range": {
-            "begin": {
-              "line": 19,
-              "column": 9
-            },
             "end": {
-              "line": 22,
-              "column": 12
+              "column": 12,
+              "line": 21
+            },
+            "begin": {
+              "column": 9,
+              "line": 19
             }
-          }
+          },
+          "content": "\n         * Block Comment Line 2\n         ",
+          "type": "BlockComment"
         },
         {
-          "type": "LineComment",
+          "range": {
+            "end": {
+              "column": 46,
+              "line": 27
+            },
+            "begin": {
+              "column": 29,
+              "line": 27
+            }
+          },
           "content": " Line Comment 1",
-          "range": {
-            "begin": {
-              "line": 28,
-              "column": 29
-            },
-            "end": {
-              "line": 28,
-              "column": 46
-            }
-          }
+          "type": "LineComment"
         }
       ],
-      "isStatic": false,
-      "isPrivate": false,
-      "isPublic": true
+      "methods": [
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": true,
+          "name": "main",
+          "sourceCode": "\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n    ",
+          "codeBlock": "/**\n * Main method of the example\n *\n * @param args\n */\npublic static void main(java.lang.String[] args) {\n\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n        System.out.println(add(2, 3));\n    }\n",
+          "parameters": [
+            {
+              "name": "args",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": true,
+          "name": "add",
+          "sourceCode": "\n        /*\n         * Block Comment Line 2\n         */\n        return a + b;\n    ",
+          "codeBlock": "public static int add(int a, int b) {\n\n        /*\n         * Block Comment Line 2\n         */\n        return a + b;\n    }\n",
+          "parameters": [
+            {
+              "name": "a",
+              "type": "int"
+            },
+            {
+              "name": "b",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": false,
+          "name": "divide",
+          "sourceCode": "\n        return 1.0 * a / b; // Line Comment 1\n    ",
+          "codeBlock": "public double divide(double a, double b) {\n\n        return 1.0 * a / b; // Line Comment 1\n    }\n",
+          "parameters": [
+            {
+              "name": "a",
+              "type": "double"
+            },
+            {
+              "name": "b",
+              "type": "double"
+            }
+          ]
+        }
+      ],
+      "name": "example1",
+      "packageName": "de.hhu.knife",
+      "fields": [
+        {
+          "name": "counter",
+          "type": "int",
+          "codeBlock": "int counter = 5;\n"
+        }
+      ]
     }
-  ],
-  "state": "OK"
+  ]
 }
+
 
 ```
 
@@ -249,161 +269,168 @@ public class SecondClass {
 }
 ```
 ``` bash
-curl --data-urlencode "class=`cat examples/example2.java`" 0.0.0.0:4567/extract | jq .
+curl --data-urlencode "class=`cat examples/example3.java`" 0.0.0.0:4567/extract | jq .
 ```
 Result will be a json as follows:
 ``` json
 {
+  "imports": [],
+  "state": "OK",
   "classes": [
     {
+      "isPublic": true,
+      "isPrivate": false,
+      "isStatic": false,
+      "comments": [
+        {
+          "range": {
+            "end": {
+              "column": 8,
+              "line": 9
+            },
+            "begin": {
+              "column": 5,
+              "line": 5
+            }
+          },
+          "content": "\n\t * Main method of the example\n\t *\n\t * @param args\n\t ",
+          "type": "JavadocComment"
+        },
+        {
+          "range": {
+            "end": {
+              "column": 12,
+              "line": 21
+            },
+            "begin": {
+              "column": 9,
+              "line": 18
+            }
+          },
+          "content": "\n         * Block Comment\n         * Line 2\n         ",
+          "type": "BlockComment"
+        }
+      ],
+      "methods": [
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": true,
+          "name": "main",
+          "sourceCode": "\n        System.out.println(2);\n        System.out.println(3);\n    ",
+          "codeBlock": "/**\n * Main method of the example\n *\n * @param args\n */\npublic static void main(java.lang.String[] args) {\n\n        System.out.println(2);\n        System.out.println(3);\n    }\n",
+          "parameters": [
+            {
+              "name": "args",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": false,
+          "name": "add",
+          "sourceCode": "\n        /*\n         * Block Comment\n         * Line 2\n         */\n        return a + b;\n    ",
+          "codeBlock": "public int add(int a, int b) {\n\n        /*\n         * Block Comment\n         * Line 2\n         */\n        return a + b;\n    }\n",
+          "parameters": [
+            {
+              "name": "a",
+              "type": "int"
+            },
+            {
+              "name": "b",
+              "type": "int"
+            }
+          ]
+        }
+      ],
+      "name": "Example3",
+      "packageName": "de.hhu.knife",
       "fields": [
         {
-          "codeBlock": "int counter = 5;\n",
+          "name": "counter",
           "type": "int",
-          "name": "counter"
+          "codeBlock": "int counter = 5;\n"
         }
-      ],
-      "packageName": "de.hhu.knife",
-      "name": "Example2",
-      "methods": [
-        {
-          "parameters": [
-            {
-              "type": "String",
-              "name": "args"
-            }
-          ],
-          "codeBlock": "/**\n * Main method of the example\n *\n * @param args\n */\npublic static void main(java.lang.String[] args) {\n\n        System.out.println(2);\n        System.out.println(3);\n    }\n",
-          "sourceCode": "\n        System.out.println(2);\n        System.out.println(3);\n    ",
-          "name": "main",
-          "isStatic": true,
-          "isPrivate": false,
-          "isPublic": true
-        },
-        {
-          "parameters": [
-            {
-              "type": "int",
-              "name": "a"
-            },
-            {
-              "type": "int",
-              "name": "b"
-            }
-          ],
-          "codeBlock": "public int add(int a, int b) {\n\n        /*\n         * Block Comment\n         * Line 2\n         */\n        return a + b;\n    }\n",
-          "sourceCode": "\n        /*\n         * Block Comment\n         * Line 2\n         */\n        return a + b;\n    ",
-          "name": "add",
-          "isStatic": false,
-          "isPrivate": false,
-          "isPublic": true
-        }
-      ],
-      "comments": [
-        {
-          "type": "JavadocComment",
-          "content": "\n\t * Main method of the example\n\t *\n\t * @param args\n\t ",
-          "range": {
-            "begin": {
-              "line": 5,
-              "column": 5
-            },
-            "end": {
-              "line": 9,
-              "column": 8
-            }
-          }
-        },
-        {
-          "type": "BlockComment",
-          "content": "\n         * Block Comment\n         * Line 2\n         ",
-          "range": {
-            "begin": {
-              "line": 18,
-              "column": 9
-            },
-            "end": {
-              "line": 21,
-              "column": 12
-            }
-          }
-        }
-      ],
-      "isStatic": false,
-      "isPrivate": false,
-      "isPublic": true
+      ]
     },
     {
-      "fields": [],
-      "packageName": "de.hhu.knife",
-      "name": "SecondClass",
-      "methods": [
-        {
-          "parameters": [
-            {
-              "type": "int",
-              "name": "a"
-            }
-          ],
-          "codeBlock": "public void print(int a) {\n\n        System.out.println(a);\n        // Line Comment 2\n    }\n",
-          "sourceCode": "\n        System.out.println(a);\n        // Line Comment 2\n    ",
-          "name": "print",
-          "isStatic": false,
-          "isPrivate": false,
-          "isPublic": true
-        },
-        {
-          "parameters": [
-            {
-              "type": "String",
-              "name": "args"
-            }
-          ],
-          "codeBlock": "/**\n * Main method of the example\n *\n * @param args\n */\npublic static void main(java.lang.String[] args) {\n\n        System.out.println(2);\n    }\n",
-          "sourceCode": "\n        System.out.println(2);\n    ",
-          "name": "main",
-          "isStatic": true,
-          "isPrivate": false,
-          "isPublic": true
-        }
-      ],
+      "isPublic": true,
+      "isPrivate": false,
+      "isStatic": false,
       "comments": [
         {
-          "type": "LineComment",
-          "content": " Line Comment 2",
           "range": {
-            "begin": {
-              "line": 6,
-              "column": 9
-            },
             "end": {
-              "line": 6,
-              "column": 26
+              "column": 26,
+              "line": 6
+            },
+            "begin": {
+              "column": 9,
+              "line": 6
             }
-          }
+          },
+          "content": " Line Comment 2",
+          "type": "LineComment"
         },
         {
-          "type": "JavadocComment",
-          "content": "\n\t * Main method of the example\n\t *\n\t * @param args\n\t ",
           "range": {
-            "begin": {
-              "line": 9,
-              "column": 5
-            },
             "end": {
-              "line": 13,
-              "column": 8
+              "column": 8,
+              "line": 13
+            },
+            "begin": {
+              "column": 5,
+              "line": 9
             }
-          }
+          },
+          "content": "\n\t * Main method of the example\n\t *\n\t * @param args\n\t ",
+          "type": "JavadocComment"
         }
       ],
-      "isStatic": false,
-      "isPrivate": false,
-      "isPublic": true
+      "methods": [
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": false,
+          "name": "print",
+          "sourceCode": "\n        System.out.println(a);\n        // Line Comment 2\n    ",
+          "codeBlock": "public void print(int a) {\n\n        System.out.println(a);\n        // Line Comment 2\n    }\n",
+          "parameters": [
+            {
+              "name": "a",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "isPublic": true,
+          "variables": [],
+          "isPrivate": false,
+          "isStatic": true,
+          "name": "main",
+          "sourceCode": "\n        System.out.println(2);\n    ",
+          "codeBlock": "/**\n * Main method of the example\n *\n * @param args\n */\npublic static void main(java.lang.String[] args) {\n\n        System.out.println(2);\n    }\n",
+          "parameters": [
+            {
+              "name": "args",
+              "type": "String"
+            }
+          ]
+        }
+      ],
+      "name": "SecondClass",
+      "packageName": "de.hhu.knife",
+      "fields": []
     }
-  ],
-  "state": "OK"
+  ]
 }
+
+
 ```
 ##### /extract (when request consists of multiple parsable and non-parsable classes)
 This request consists of two clases where the second one has a syntax eror.
@@ -439,7 +466,7 @@ public class SecondClass {
 
 ```
 ``` bash
-curl --data-urlencode "class=`cat examples/example2.java`" 0.0.0.0:4567/extract | jq .
+curl --data-urlencode "class=`cat examples/example4.java`" 0.0.0.0:4567/extract | jq .
 ```
 Result will be a json as follows:
 ``` json
