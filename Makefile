@@ -19,4 +19,4 @@ stop:
 	if docker inspect $(name) >/dev/null 2>&1; then docker stop $(name); docker rm $(name); fi
 
 push:
-	docker push $(docker_registry)/$(name)
+	docker push $(registry)/$(name)
